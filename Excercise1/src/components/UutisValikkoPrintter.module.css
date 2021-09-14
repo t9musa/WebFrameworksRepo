@@ -1,0 +1,19 @@
+.paaOtsikko{
+    font-size: 18px;
+    font-weight: 700;
+    justify-content: left;
+    
+
+}
+.NewsContainer{
+    background-color: rgba(65,150,164);
+    color: white;
+    height: 20px;
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 5px;
+
+    font-size: 25;
+    padding: 20px;
+}

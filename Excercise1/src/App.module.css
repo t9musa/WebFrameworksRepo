@@ -1,0 +1,12 @@
+.tausta {
+    display: flex;
+    background-color: #e9eaed;
+    flex-direction: column;
+}
+
+.EtusivunPaaOtsikkoFlexBOX1 {
+flex:2;
+}
+.EtusivunPaaOtsikkoFlexBOX2 {
+flex:1;
+}
