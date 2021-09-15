@@ -84,7 +84,10 @@ class App extends React.Component {
  }
 
   removeBasedOnID =(idToBeRemoved) => {
-
+    console.log("Delete item in id: "+ idToBeRemoved );
+    let newItems = this.state.items.filter(item => item.id !== idToBeRemoved)
+    this.setState({items: newItems});
+    /*
     let indexToBeDeleted = this.state.items.findIndex(item=> item.id === idToBeRemoved);
 
     if (indexToBeDeleted !== -1) 
@@ -93,7 +96,7 @@ class App extends React.Component {
       newItems.splice(indexToBeDeleted, 1);
       this.setState({items: newItems});
     }
-    
+    */
   }
   //oma yritys johon lisätty splice
   removeFoodItem=(stuffDescription) => 
