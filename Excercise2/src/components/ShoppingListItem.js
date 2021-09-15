@@ -16,6 +16,9 @@ const ShoppingListItem = props => {
     <div>
       { props.value} 
     </div>
+    <div>
+      <button onClick={ () => props.removeBasedOnID(props.id) }>X</button> 
+    </div>
   </li>
 }
 

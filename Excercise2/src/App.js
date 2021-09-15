@@ -21,7 +21,7 @@ class App extends React.Component {
         { id: 4, value: 'Eggs', qty: 16, unit: 'x' }
       ]
     };
-
+  }
       /* setTimeout(() => {
         //this.state.item = []
         this.setState({ items: [...this.state.items, {id: 5, value: "carrots", qty: 5}] } );
@@ -29,12 +29,12 @@ class App extends React.Component {
           }, 2000);
           */
           //this.addSomeCarrots = this.addSomeCarrots.bind(this);
-  } //changes
+   //changes
   //tehtävässä 2 pitää käyttää for lausetta että käydään kaikki listat läpi ja nähdään että onko
   //siellä jo olemassa vaikka porkkanoita. Jos on sitten uuden rivin sijaaan tulee 
-  addSomeCarrots= () =>{
-    this.setState({ items: [...this.state.items, {id: 5, value: "carrots", qty: 1, unit: 'x'}] } ); 
-  }
+  //addSomeCarrots= () =>{
+  //  this.setState({ items: [...this.state.items, {id: 5, value: "carrots", qty: 1, unit: 'x'}] } ); 
+  //}
   //vanhan systeemin mukaan jokainen tuote tarvitsi oman set.state rivinsä
   /*
   addSomeStrawberries= () =>{
@@ -47,17 +47,22 @@ class App extends React.Component {
     this.setState({ items: [...this.state.items, {id: 8, value: "Beer", qty:3, unit: 'x'}] } );
   }
   */
-  addFootItem = (stuffDescription, quantity) => {
-    return () => {
-      const searchResult=this.state.items.findIndex((element, index, array) => {
-        if (element.value === stuffDescription){ 
-          return true;
-        } else {
+  addFootItem = (stuffDescription, quantity) => 
+  {
+    return () => 
+    {
+      const searchResult=this.state.items.findIndex((element, index, array) => 
+      {
+        if (element.value === stuffDescription)
+        { return true; 
+        } 
+        else 
+        {
         return false
-      }
-    });
+        }
+      });
 
-      if(searchResult != -1) {
+      if(searchResult !== -1) {
         console.log("Success! The id number: " + searchResult + " matches the " + stuffDescription);
         let newItems = [...this.state.items];
         newItems[searchResult].qty += quantity;
@@ -75,12 +80,42 @@ class App extends React.Component {
           ]
         });
       }    
+   }
+ }
+
+  removeBasedOnID =(idToBeRemoved) => {
+
+    let indexToBeDeleted = this.state.items.findIndex(item=> item.id === idToBeRemoved);
+
+    if (indexToBeDeleted !== -1) 
+    {
+      let newItems = [...this.state.items];
+      newItems.splice(indexToBeDeleted, 1);
+      this.setState({items: newItems});
+    }
+    
   }
-}
-
-  
-
-
+  //oma yritys johon lisätty splice
+  removeFoodItem=(stuffDescription) => 
+  {
+    return () => 
+    {
+      const searchResult=this.state.items.findIndex((element, index, array) => 
+      { if (element.value === stuffDescription)
+        { return true; 
+        } else {
+        return false
+        }
+      });
+      if(searchResult !== -1) {
+        console.log("Success! The id number: " + searchResult + " matches the " + stuffDescription);
+        let newItems = [...this.state.items];
+        newItems.splice(this.state.items.value[searchResult], 1);
+        this.setState({items: newItems});
+      } else {
+        console.log("Did not find id matching that number!");
+        console.log("Nothing to delete");
+      }}}
 
   render()
   {
@@ -90,11 +125,19 @@ class App extends React.Component {
         applicationDescription={ applicationDescription }
         applicationName={ applicationName }
       />
-      <ShoppingList items={ this.state.items } />
-      <button onClick={ this.addFootItem ("Carrots", 5) }> Add Carrots!</button>
-      <button onClick={ this.addFootItem ("Strawberries", 2) }> Add Strawberries!</button>
-      <button onClick={ this.addFootItem ("Yoghurt", 1) }> Add Yoghurt!</button>
-      <button onClick={ this.addFootItem ("Beer", 6) }> Add Beer!</button>
+      <ShoppingList items={ this.state.items } removeBasedOnID={this.removeBasedOnID}/>
+
+        <button onClick={ this.addFootItem ("Carrots", 5) }> Add Carrots!</button>
+        <button onClick={ this.addFootItem ("Strawberries", 2) }> Add Strawberries!</button>
+        <button onClick={ this.addFootItem ("Yoghurt", 1) }> Add Yoghurt!</button>
+        <button onClick={ this.addFootItem ("Beer", 6) }> Add Beer!</button>
+
+      <div className="App" style={{display: 'flex', flexDirection: 'row'}}>
+        <button onClick={ this.removeFoodItem ("Carrots") }>Delete Carrots</button>
+        <button onClick={ this.removeFoodItem ("Strawberries") }>Delete Strawberries</button>
+        <button onClick={ this.removeFoodItem ("Yoghurt") }>Delete Yoghurt</button>
+        <button onClick={ this.removeFoodItem ("Beer") }>Delete Beer</button>
+      </div>
     </div>
   }
 }
