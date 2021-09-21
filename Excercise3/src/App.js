@@ -25,7 +25,6 @@
       let output = 
       <>
         <div> 
-          
             <TopBar productSearchText={this.state.productSearchText} onProductSearch={this.onProductSearch}></TopBar>
             
             <ProductSearchView

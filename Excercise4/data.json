@@ -1,0 +1,21 @@
+{
+  "products":[
+        {
+        "id": 1,
+        "name": "Roomba 3000",
+        "manufacturer": "Henry", 
+        "category": "Automatic Vacuum",
+        "description":"Automatic Vacuum, that sweeps the floors automatically",
+        "price": "$399"
+        },
+        {
+          "id": 2,
+        "name": "Auto-Lawnmover Maximus",
+        "manufacturer": "Husqvarna", 
+        "category": "Automatic Lawnmower",
+        "description":"Lawnmower that keeps care of your grass daily",
+        "price": "$450"
+        }
+    ]
+}
+
