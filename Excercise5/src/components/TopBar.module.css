@@ -1,0 +1,9 @@
+.topBarcontainer{
+    background-color: black;
+    color:white;
+    padding-left: 10px;
+    display:flex;
+    gap: 200px;
+    align-items: center;
+}
+

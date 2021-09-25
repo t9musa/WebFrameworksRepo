@@ -22,12 +22,15 @@ The operations needed are the following:
 */
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 4000
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 const { all } = require('express/lib/application');
+const productData = require('./data.json');
+const cors = require('cors'); 
 
 app.use(bodyParser.json());
+app.use(cors());
 
 let products = [
     {
@@ -58,13 +61,18 @@ let products = [
     }];
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.json('hello world');
 })
 
 //get all products
 app.get('/products', (req, res) => {
-    res.send(products)
+  res.json(products);
   })
+
+  //get all listings
+  app.get('/listings', (req, res) => {
+    res.json(productData);
+    })
 
 //get a singular products
 app.get('/products/:id', (req,res) => {
@@ -87,6 +95,36 @@ app.post('/products', (req,res) => {
     console.log('Product name: ' + req.body.name);
     res.send('Creating a new product');
 })
+
+//create a new product to listings
+
+app.post('/listings', function (req, res) {
+  console.log("Found the right post request")
+  productData.listings.push({
+    id: productData.listings.length+1,
+    name: req.body.name,
+    producer: req.body.producer,
+    rating: req.body.rating,
+    price: req.body.price,
+    arrivalDate: req.body.arrivalDate,
+  })
+})
+
+//delete singular listing
+app.delete('/listings/:id', (req,res) => {
+  console.log(req.params.id)
+  var parameterToInt = parseInt(req.params.id);
+  let index = productData.listings.findIndex((element)=>element.id===parameterToInt)
+  if (index !== -1) {
+  console.log(index);
+  var x = productData.listings.splice(index, 1);
+  console.log(x);
+  }
+  else{
+    console.log("operation failed...index was " +index)
+  }
+})
+
 
 //modify a product (Patch)
 
