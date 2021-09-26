@@ -1,13 +1,11 @@
 import React from 'react';
 import ProductSearchView from './components/ProductSearchView';
 import TopBar from './components/TopBar'
-//import data from './data.json'
 import AdminMode from './components/AdminMode'
 import axios from 'axios'
 
 class App extends React.Component 
 {
-
   constructor(props) 
     {
       super(props); 
@@ -18,7 +16,6 @@ class App extends React.Component
       }
       console.log("Constructor");
     }
-
     componentDidMount() {
       console.log("Mounted");
       axios.get('http://localhost:4000/listings')

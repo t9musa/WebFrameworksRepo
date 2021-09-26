@@ -1,25 +1,4 @@
-/*
-The task of excercise 4 is to create an API
-with Express JS to support basic operations 
-needed to run an e-commerce app
-No database, stored in the Memory
-The operations needed are the following:
-*create a new product (name, manufacturer, 
- category, description, price,
- bonus image)
-* get all products
-* get singular product
-* modify a product
-* Search for products based on 
-  name, manufacturer,category
-        USER
-* Create user (basic information name, address etc.)
-    Purchase / Invoice
-* Purchase products for a user -> create invoice with information of all the bought products + total sum
-* Get invoices of a user
-* Get a single invoice of a user
-* Delete invoice of a user
-*/
+
 const express = require('express')
 const app = express()
 const port = 4000
@@ -49,37 +28,32 @@ let products = [
     description:"Lawnmower that keeps care of your grass daily",
     price: "450"
     }];
-
-    let users = [
+let users = [
       {
-        userID: uuidv4(),
-        name: 'Jack Jones',
-        address: '123 MainStrt.',
-        phone: '12332112332',
-        shoppingCart: [],
-        invoices: []
+    userID: uuidv4(),
+    name: 'Jack Jones',
+    address: '123 MainStrt.',
+    phone: '12332112332',
+    shoppingCart: [],
+    invoices: []
     }];
 
 app.get('/', (req, res) => {
   res.json('hello world');
 })
-
 //get all products
 app.get('/products', (req, res) => {
   res.json(products);
   })
-
   //get all listings
   app.get('/listings', (req, res) => {
     res.json(productData);
     })
-
 //get a singular products
 app.get('/products/:id', (req,res) => {
     const result = products.find(d => d.id === req.params.id)
     res.json(result);
 })
-
 //create a new product (POST)
 app.post('/products', (req,res) => {
     console.log('Creating a new product');
@@ -95,9 +69,7 @@ app.post('/products', (req,res) => {
     console.log('Product name: ' + req.body.name);
     res.send('Creating a new product');
 })
-
 //create a new product to listings
-
 app.post('/listings', function (req, res) {
   console.log("Found the right post request")
   productData.listings.push({
@@ -109,7 +81,6 @@ app.post('/listings', function (req, res) {
     arrivalDate: req.body.arrivalDate,
   })
 })
-
 //delete singular listing
 app.delete('/listings/:id', (req,res) => {
   console.log(req.params.id)
@@ -124,40 +95,30 @@ app.delete('/listings/:id', (req,res) => {
     console.log("operation failed...index was " +index)
   }
 })
-
-
 //modify a product (Patch)
-
 app.patch('/products/:id', (req,res) => {
   const {name, manufacturer, category, description, price} = req.body;
   const product= products.find((product) => product.id === req.params.id);
-
   if (name) product.name=name;
   if (manufacturer) product.manufacturer=manufacturer;
   if (category) product.category=category;
   if (description) product.description=description;
   if (price) product.price=price;
-    
   res.send('Product with the id '+ req.params.id + ' has been updated');
 })
-
 //delete singular product
 app.delete('/products/:id', (req,res) => {
 products = products.filter((product) => product.id !==req.params.id )
 res.send("Product with id "+req.params.id+" deleted")
 })
-
 //delete all products
 app.delete('/products', (req,res) => {
   products.splice(0, products.length);
   res.send('All products deleted');
 })
-
 /*Search for products based on 
   name, manufacturer,category*/
-
 app.get('/search', (req, res) => {
-
  let productSearchText= "vac";
  let result = products.filter((product) => 
   product.name.includes(productSearchText) ||
@@ -166,7 +127,6 @@ app.get('/search', (req, res) => {
   product.manufacturer.toLowerCase().includes(productSearchText) ||
   product.category.includes(productSearchText) ||
   product.category.toLowerCase().includes(productSearchText));
-  
   res.send(result);
   console.log('Results for searchString '+ productSearchText+ ' is '+result);
 });
@@ -189,8 +149,7 @@ app.delete('/users/:id', (req,res) => {
   users = users.filter((users) => users.userID !==req.params.id )
   res.send("User with id "+req.params.id+" deleted")
   })
-
-// add item to shopping cart body input is userID 
+// add item to shopping cart body, input is userID 
 //and json input is productID and amount
 app.post('/purchase/:id', (req, res) => {
   const userID = users.find(d => d.userID === req.params.id);
@@ -216,7 +175,6 @@ app.get('/cart/:id', (req, res) => {
     res.send("Something went wrong")
   }
 })
-
 //buy everthing in your shopping cart (input is userID)
 app.post('/buyShoppingcart', (req, res) => {
   const userID = users.find(d => d.userID === req.body.id);
@@ -225,7 +183,9 @@ app.post('/buyShoppingcart', (req, res) => {
   let product;
   let productNames = [];
   let productName;
-  
+    //adding information the to the arrays above with for loops and 
+    //later pushing them to the
+    //invoice array on row 206
     for(z=0; z < userID.shoppingCart.length; z++) {
       finalPrice += userID.shoppingCart[z].price*userID.shoppingCart[z].amount;
     }
@@ -244,14 +204,12 @@ app.post('/buyShoppingcart', (req, res) => {
   }
   if (userID !== undefined) {
     userID.invoices.push(y);
-    userID.shoppingCart.splice(0,userID.shoppingCart.length);
-  res.send('successful operation'); 
+    userID.shoppingCart.splice(0,userID.shoppingCart.length); //clear out shoppingcart for future purchases
+  res.send('Invoice was added successfully'); 
   } else {
     res.send("Something went wrong")
   }
-})
-
-
+  })
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })

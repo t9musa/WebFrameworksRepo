@@ -22,25 +22,6 @@
         this.setState({ productSearchText: event.target.value });
       }
 
-      deleteProduct = productId => this.setState({
-        items: this.state.listings.filter(listing => listing.id !== productId)})
-
-      addProduct = (name, producer, rating, price, arrivaldate) => {
-        let newProductList = [...this.state.listings];
-        newProductList.push({
-          id: newProductList.length + 1,
-          name: name,
-          producer: producer,
-          rating: rating,
-          price: price,
-          arrivaldate: arrivaldate
-        });
-        this.setState({
-          listings: newProductList
-        });
-      }
-
-
     render() 
     {
       let output = 
@@ -58,12 +39,8 @@
   if(this.state.adminModeActive) {
   output = <AdminMode
               disableAdminMode={() => this.setState({adminModeActive: false}) }
-              addProduct={ this.addProduct }
-              items={ this.state.listings }
-              deleteItem={ this.deleteProduct }
            />;
-  }
-
+      }
       return (
       <>
       { output }
