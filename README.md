@@ -5,7 +5,7 @@ Omistaja: Samuli Mursu
 S.posti: t9musa00@students.oamk.fi
 
 
--Kun kloonaat repositoryn, muista ladata node_modulet komennolla "npm install" tai npm ei käynnisty.
+-Kun kloonaat repositoryn, muista ladata node_modulet komennolla "npm install" jokaiselle tehtävälle tai npm ei käynnisty.
 
 -Tehtävässä 4, muista että koodia ajetaan portissa 4000.
 
