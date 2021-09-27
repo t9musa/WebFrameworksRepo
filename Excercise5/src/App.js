@@ -36,7 +36,7 @@ class App extends React.Component
       axios.delete('http://localhost:4000/listings/'+productID,{
         id: productID
       })
-      .then(response =>{
+      .then( (response) =>{
         console.log(response);
         this.setState({listings: response.data.listings})
       })
@@ -52,7 +52,7 @@ class App extends React.Component
         price: price,
         arrivaldate: arrivaldate,
       })
-      .then(function (response) {
+      .then( (response) => {
         console.log(response);
         this.setState({ listings: response.data.listings })
       })
