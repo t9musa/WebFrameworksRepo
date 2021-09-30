@@ -281,7 +281,25 @@ app.post('/buyShoppingcart', (req, res) => {
 
 //these functions aren't a part of EX4
 
+
+  //get all listings
+  app.get('/listings', (req, res) => {
+    res.json(productData);
+    })
+
 //create a new product to listings
+//you can use the web application adminmode 
+//to add and delete listings, here is an example for postman
+/*
+"{
+    "id": 5,
+    "name": "summin",
+    "producer": "someone",
+    "rating": "5.0",
+    "price": 800,
+    "arrivalDate": "September 1911"
+}""
+*/
 app.post('/listings', function (req, res) {
   console.log("Found the right post request")
   productData.listings.push({
@@ -295,6 +313,7 @@ app.post('/listings', function (req, res) {
   res.send(productData);
 })
 //delete singular listing
+//listingID
 app.delete('/listings/:id', (req,res) => {
   console.log(req.params.id)
   var parameterToInt = parseInt(req.params.id);
@@ -310,10 +329,7 @@ app.delete('/listings/:id', (req,res) => {
   res.send(productData);
 })
 
-  //get all listings
-  app.get('/listings', (req, res) => {
-    res.json(productData);
-    })
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
