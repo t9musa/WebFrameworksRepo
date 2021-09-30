@@ -13,4 +13,7 @@ S.posti: t9musa00@students.oamk.fi
 
 -Tehtävässä 5, muista että Ex4 pitää olla päällä samanaikasesti tai muuten tuotteet eivät ilmesty.
 
+-Postman datan importtaaminen. Importtaa postman data avaamalla postmanissa vasemmasta yläkulmasta file valikko ja valitse
+import. Draggaa tai uploadaa sitten postman ex4.json tiedosto import valikkoon. 
+
 
